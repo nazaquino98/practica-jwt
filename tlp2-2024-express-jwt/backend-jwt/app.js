@@ -7,7 +7,7 @@ import cors from 'cors';
 import { PORT } from './config/env.js';
 import generarJwt from './helpers/generar-jwt.js';
 import validarJwt from './middlewares/validar-jwt.js';
-import { database } from './db/database.js';
+import { newConnection } from './db/database.js';
 import morgan from 'morgan';
 
 
@@ -34,7 +34,7 @@ app.post('/login', async (req, res) => {
 
 
     try {
-        const user = database.user.find(
+        const user = newConnection.user.find(
             user => user.username === username && user.password === password
         );
 
