@@ -39,7 +39,7 @@ app.use(
 );
 
 // Usar las rutas modularizadas
-app.use("/api", authRoutes);
+app.use("/users", authRoutes);
 
 app.listen(PORT, () =>
   console.log(`Server running on http://localhost:${PORT}/`)

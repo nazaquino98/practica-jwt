@@ -47,3 +47,29 @@ export const logout = (req, res) => {
     return res.json({ message: "Sesión cerrada exitosamente" });
   });
 };
+
+
+export const register = async (req, res) => {
+    const { username, password } = req.body;
+
+    try {
+        // Crear una nueva conexión a la base de datos
+        const connection = await newConnection();
+
+        // Verificar si el usuario ya existe
+        const [rows] = await connection.execute('SELECT * FROM users WHERE username = ?', [username]);
+        if (rows.length > 0) {
+            return res.status(409).json({ message: 'El nombre de usuario ya está en uso' });
+        }
+
+        // Insertar el nuevo usuario en la base de datos
+        const [result] = await connection.execute('INSERT INTO users (username, password) VALUES (?, ?)', [username, password]);
+
+        // Cerrar la conexión
+        await connection.end();
+
+        return res.status(201).json({ message: 'Usuario registrado exitosamente', user: { id: result.insertId, username } });
+    } catch (error) {
+        return res.status(500).json({ message: 'Error interno del servidor', error: error.message });
+    }
+};
