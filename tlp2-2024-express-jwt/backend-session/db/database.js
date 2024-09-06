@@ -1,15 +1,27 @@
-import { createConnection } from "mysql2/promise"
+import { createPool } from "mysql2/promise";
+import {
+  DB_HOST,
+  DB_NAME,
+  DB_PASSWORD,
+  DB_PORT,
+  DB_USER,
+} from "../settings/config.js";
 
-const newConnection = async () => {
+// Crear el pool de conexiones directamente
+const pool = createPool({
+  host: DB_HOST,
+  user: DB_USER,
+  database: DB_NAME,
+  port: DB_PORT,
+  password: DB_PASSWORD,
+});
 
-    const connection = await createConnection({
-        host: "localhost",
-        user: "root",
-        database: "db_system", //el nombre de mi base de datos 
-        password: ""
-    })
+// Mensaje de conexión exitosa
+pool
+  .getConnection()
+  .then(() => console.log("Base de datos conectada con éxito"))
+  .catch((error) =>
+    console.log("Error al conectar a la base de datos:", error.message)
+  );
 
-    return connection
-}
-
-export { newConnection }
+export { pool };

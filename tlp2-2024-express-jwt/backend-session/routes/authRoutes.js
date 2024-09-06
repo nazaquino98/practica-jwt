@@ -1,12 +1,23 @@
-// routes/authRoutes.js
-
 import { Router } from "express";
-import { login, getSession, logout, register } from "../controllers/authController.js";
+import {
+  getUsersCrlt,
+  postLogOutCtrl,
+  postUsersCtrl,
+  registerUsersCtrl,
+} from "../controllers/authController.js";
 
-const router = Router();
+const authRouter = Router();
 
-router.post("/login", login);
-router.get("/session", getSession);
-router.post("/logout", logout);
-router.post("/register", register);
-export default router;
+// Ruta para manejar el inicio de sesión
+authRouter.post("/login", postUsersCtrl);
+
+// Ruta para obtener los datos de la sesión
+authRouter.get("/session", getUsersCrlt);
+
+// Ruta para cerrar la sesión
+authRouter.post("/logout", postLogOutCtrl);
+
+//Ruta para registrarse
+authRouter.post("/register", registerUsersCtrl);
+
+export { authRouter };

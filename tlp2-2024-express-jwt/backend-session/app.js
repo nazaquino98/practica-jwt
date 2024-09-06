@@ -1,16 +1,12 @@
-// backend-session/app.js
-
 import cors from "cors";
 import express from "express";
 import session from "express-session";
 import morgan from "morgan";
 import path from "path";
 
-import authRoutes from "./routes/authRoutes.js";
-
+import { PORT } from "./settings/config.js";
+import { authRouter } from "./routes/authRoutes.js";
 const app = express();
-const PORT = process.env.PORT || 4000;
-
 const __dirname = path.resolve();
 
 // Middlewares
@@ -38,8 +34,7 @@ app.use(
   })
 );
 
-// Usar las rutas modularizadas
-app.use("/users", authRoutes);
+app.use(authRouter);
 
 app.listen(PORT, () =>
   console.log(`Server running on http://localhost:${PORT}/`)
