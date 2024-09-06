@@ -1,7 +1,7 @@
 import jwt from 'jsonwebtoken';
 
-import { SECRET_KEY } from '../config/env.js';
-import { newConnection } from '../db/database.js';
+import { SECRET_KEY } from '../setting/config.js';
+import { pool } from '../db/database.js';
 
 // Middleware para verificar el token JWT
 export default (req, res, next) => {
@@ -17,7 +17,7 @@ export default (req, res, next) => {
      const decoded = jwt.verify(token, SECRET_KEY);
 
     // Se busca al usuario en la base de datos
-    const user = newConnection.user.find( user => user.id === decoded.userId );
+    const user = pool.user.find( user => user.id === decoded.userId );
 
     if (!user) {
         return res.status(401).json({ message: 'Token inválido' });

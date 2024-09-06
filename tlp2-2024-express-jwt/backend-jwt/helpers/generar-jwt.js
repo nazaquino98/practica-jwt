@@ -1,5 +1,5 @@
 import jwt from 'jsonwebtoken';
-import { SECRET_KEY } from '../config/env.js';
+import { SECRET_KEY } from '../setting/config.js';
 
 export default ( userId ) => {
     return new Promise( ( resolve, reject ) => {

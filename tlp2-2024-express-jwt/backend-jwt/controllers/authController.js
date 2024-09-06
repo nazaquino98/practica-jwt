@@ -1,11 +1,11 @@
 import generarJwt from '../helpers/generar-jwt.js';
-import { newConnection } from '../db/database.js';
+import { pool } from '../db/database.js';
 
 export const login = async (req, res) => {
     const { username, password } = req.body;
 
     try {
-        const user = newConnection.user.find(
+        const user = pool.user.find(
             user => user.username === username && user.password === password
         );
 

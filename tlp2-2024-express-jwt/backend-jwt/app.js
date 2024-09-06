@@ -3,7 +3,7 @@ import cookieParser from 'cookie-parser';
 import session from 'express-session';
 import cors from 'cors';
 import morgan from 'morgan';
-import { PORT, SECRET_KEY } from './config/env.js';
+import { PORT, SECRET_KEY } from './setting/config.js';
 import authRoutes from './routes/authRoutes.js';
 
 const app = express();
