@@ -24,7 +24,7 @@ app.use(session({
 }));
 
 // Usar las rutas definidas en `authRoutes.js`
-app.use('/', authRoutes);
+app.use(authRoutes);
 
 // Servidor escuchando
 app.listen(PORT, () => {
